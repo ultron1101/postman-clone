@@ -28,10 +28,13 @@ export const checkParams = (formData, jsonText, paramData, headerData, setErrorM
 
 export const getHeadersAndParams = (objArr) => {
     let obj = {};
+    
+    //Converts objArr to a Json Object
     objArr.forEach(data => {
         if (data.hasOwnProperty('check') && data.check) {
             obj = { ...obj, [data.key]: data.value };
         }
     })
+
     return obj;
 }

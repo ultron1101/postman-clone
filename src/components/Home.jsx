@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 
 import { Box } from '@mui/material';
 import { makeStyles } from "@mui/styles";
-import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { DataContext } from '../context/DataProvider';
 import { checkParams } from '../utils/common-utils';
 import { getData } from '../service/api';
@@ -12,13 +12,18 @@ import Form from "./Form";
 import SelectTab from './SelectTab';
 import SnackBar from './SnackBar';
 import Header from './Header';
-import Response from './Response';
 import ErrorScreen from './ErrorScreen';
+import Tests from '../testComponents/Tests';
+import ResponseTab from './ResponseTab';
 
 const useStyles = makeStyles({
     component: {
-        width: '60%',
+        width: '70%',
         margin: '20px auto 0 auto'
+    },
+    sidebar: {
+        background: ['#FFFFFF', '!important'],
+        border: '1px solid',
     }
 })
 
@@ -40,13 +45,13 @@ const Home = () => {
         setStatus(null);
 
         if(!checkParams(formData, jsonText, paramData, headerData, setErrorMsg)) {
-            setStatus(500);
+            setStatus(422);
             setError(true);
             return false;
         }
 
         let response = await getData(formData, jsonText, paramData, headerData);
-        console.log(response.status);
+        //console.log(response.status);
 
         if (response === 'error') {
             setErrorResponse(true);
@@ -57,16 +62,29 @@ const Home = () => {
         setStatus(response.status);
     }
 
+
     return (
         <>
             <Header />
-            <Box className={classes.component}>
-                <Form onSendClick={onSendClick} />
-                <SelectTab />
-                <Typography mt={3}>Response </Typography>
-                <Typography mt={1} mb={2}>Status: {status}</Typography>
-                { errorResponse ? <ErrorScreen /> : <Response status = {status} data={apiResponse} /> }
+            <Box sx={{ flexGrow: 1, display: 'flex', height: '100vh' }}>
+            <Grid container spacing={2}>
+                {/* Main Postman clone */}
+                <Grid item xs={12} md={8}>
+                <Box className={classes.component}>
+                    <Form onSendClick={onSendClick} />
+                    <SelectTab />
+                    { errorResponse ? <ErrorScreen /> : <ResponseTab status={status} data={apiResponse} /> }
+                    
+                </Box>
+                </Grid>
+
+                {/* Sidebar Tests */}
+                <Grid className={classes.sidebar} item xs={12} md={4}>
+                    <Tests />
+                </Grid>
+            </Grid>
             </Box>
+            
             { error && <SnackBar errorMsg={errorMsg} error={error} setError={setError} />}
         </>
     )
