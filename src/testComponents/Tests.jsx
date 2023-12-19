@@ -1,8 +1,15 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const Tests = () => {
 
-    return <Typography>Create Tests:</Typography>
+    return (
+        <>
+            <Typography variant="h6">Create Tests:</Typography>
+            <Box>
+                <h1>Hello</h1>
+            </Box>
+        </>
+    )
 
 }
 

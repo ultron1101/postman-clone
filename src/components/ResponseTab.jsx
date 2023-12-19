@@ -3,6 +3,7 @@ import { Box, Tabs, TextareaAutosize, Tab, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import TestResults from '../testComponents/TestResults';
+import ErrorScreen from './ErrorScreen';
 
 const textareaStyle = { 
     width: '100%', 
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
     }
 });
 
-const ResponseTab = ({status, data}) => {
+const ResponseTab = ({status, data, errorResponse}) => {
     const classes = useStyles();
     const [value, setValue] = useState(0);
 
@@ -62,6 +63,8 @@ const ResponseTab = ({status, data}) => {
                 <Tab label="Response" className={classes.tab} />
                 <Tab label="Tests" className={classes.tab} />
             </Tabs>
+
+            {/*Box to display Response*/}
             <Box
                 role="tabpanel"
                 hidden={value !== 0}
@@ -69,25 +72,31 @@ const ResponseTab = ({status, data}) => {
                 aria-labelledby={`simple-tab-${0}`}
             >
                 <div className={classes.status}>
-                  <Typography>Status: {status}</Typography>
+                    <Typography>Status: {status}</Typography>
                 </div>
-                <Box>
-                    <TextareaAutosize 
-                        minRows={3}
-                        maxRows={5}
-                        style={textareaStyle}
-                        disabled="disabled"
-                        value={readableobj}
-                    />
-                </Box>
+                {errorResponse ? <ErrorScreen /> : 
+                    <>
+                    <Box>
+                        <TextareaAutosize 
+                            minRows={3}
+                            maxRows={5}
+                            style={textareaStyle}
+                            disabled="disabled"
+                            value={readableobj}
+                        />
+                    </Box>
+                    </>
+                }
             </Box>
+
+            {/*Box to display Test Results*/}
             <Box
                 role="tabpanel"
                 hidden={value !== 1}
                 id={`simple-tabpanel-${1}`}
                 aria-labelledby={`simple-tab-${1}`}
             >
-                <TestResults />
+                <TestResults status={status} data={data}/>
             </Box>
             
         </Box>

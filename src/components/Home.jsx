@@ -12,7 +12,6 @@ import Form from "./Form";
 import SelectTab from './SelectTab';
 import SnackBar from './SnackBar';
 import Header from './Header';
-import ErrorScreen from './ErrorScreen';
 import Tests from '../testComponents/Tests';
 import ResponseTab from './ResponseTab';
 
@@ -23,7 +22,7 @@ const useStyles = makeStyles({
     },
     sidebar: {
         background: ['#FFFFFF', '!important'],
-        border: '1px solid',
+        border: '1px solid rgba(224, 224, 224, 1)',
     }
 })
 
@@ -73,7 +72,7 @@ const Home = () => {
                 <Box className={classes.component}>
                     <Form onSendClick={onSendClick} />
                     <SelectTab />
-                    { errorResponse ? <ErrorScreen /> : <ResponseTab status={status} data={apiResponse} /> }
+                    <ResponseTab status={status} data={apiResponse} errorResponse={errorResponse} />
                     
                 </Box>
                 </Grid>
