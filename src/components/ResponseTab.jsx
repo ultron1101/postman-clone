@@ -96,7 +96,7 @@ const ResponseTab = ({status, data, errorResponse}) => {
                 id={`simple-tabpanel-${1}`}
                 aria-labelledby={`simple-tab-${1}`}
             >
-                <TestResults status={status} data={data}/>
+                <TestResults status={status} data={data} />
             </Box>
             
         </Box>

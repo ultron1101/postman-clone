@@ -51,7 +51,6 @@ const TestResults = ({status, data}) => {
         //Default Test case: 0
         if(validRequest){
             setHtml(<p>Default Test case 0: <span style={styles.pass}>Pass</span> : Valid Request Sent</p>);
-            console.log('Hi');
         } else {
             setHtml(<p>Default Test case 0: <span style={styles.fail}>Failed</span> : Invalid Request Sent</p>);
         }
