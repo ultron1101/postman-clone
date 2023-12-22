@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     sidebar: {
         background: ['#FFFFFF', '!important'],
         border: '1px solid rgba(224, 224, 224, 1)',
-    }
+    },
 })
 
 

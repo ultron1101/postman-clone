@@ -4,7 +4,8 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
     logo: {
         width: 100,
-        padding: 5
+        padding: 5,
+        marginBottom: '14px'
     },
     navbar: {
         background: ['#000', '!important'],
