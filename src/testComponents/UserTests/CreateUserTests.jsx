@@ -1,6 +1,7 @@
-import { AppBar, Box, Container, Tab, Tabs, TextField, Typography, Button } from "@mui/material";
+import { Snackbar, Box, Container, Tab, Tabs, TextField, Typography, Button } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { useState } from "react";
+import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles({
     tab: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles({
     }
 })
 
-const CreateUserTests = () => {
+const CreateUserTests = ({ onSubmit }) => {
     const classes = useStyles();
     const [value, setValue] = useState(0);
 
@@ -20,8 +21,29 @@ const CreateUserTests = () => {
     };
 
     const handleSubmit = () => {
-        // Add your form submission logic here
         console.log('Form submitted!');
+    };
+
+    //<---------Check status code Form----------->
+    const [statusFormData, setStatusFormData] = useState({
+      code: null,
+      message: '',
+    });
+
+    const statusFormHandleChange = (e) => {
+      setStatusFormData({ ...statusFormData, [e.target.name]: e.target.value });
+    };
+
+    const statusHandleSubmit = (e) => {
+      e.preventDefault();
+  
+      // Check if both code and message fields are filled
+      if (statusFormData.code === null || statusFormData.message.trim() === '') {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      onSubmit(statusFormData);
     };
 
     return(
@@ -33,6 +55,7 @@ const CreateUserTests = () => {
                 <Tab label="Key-value" className={classes.tab} />
             </Tabs>
 
+            {/*------Checking Status tab Form-----------*/}
             <Box 
                 role="tabpanel"
                 hidden={value !== 0}
@@ -41,18 +64,30 @@ const CreateUserTests = () => {
             >
               <Typography style={{ marginTop: '20px' }}>Check Status</Typography>
 
-              <TextField label="Status Code" fullWidth margin="normal" />
+              <TextField 
+                  label="Status Code" 
+                  name="code"
+                  value={statusFormData.code}
+                  onChange={statusFormHandleChange}
+                  fullWidth margin="normal" />
+              <TextField 
+                  label="Enter Message" 
+                  name="message"
+                  value={statusFormData.message}
+                  onChange={statusFormHandleChange}
+                  fullWidth margin="normal" />
 
               <Button 
                 variant="contained" 
                 size="small" 
                 style={{ backgroundColor: "#F26B3A", marginTop: '10px' }} 
-                onClick={handleSubmit}
+                onClick={statusHandleSubmit}
               >
                 Create
               </Button>
             </Box>
-  
+
+            {/*------Checking by Key Value pair Form-----------*/}
             <Box 
                 role="tabpanel"
                 hidden={value !== 1}
