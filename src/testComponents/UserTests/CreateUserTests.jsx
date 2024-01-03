@@ -54,10 +54,6 @@ const CreateUserTests = ({ onSubmit }) => {
         setValue(newValue);
     };
 
-    const handleSubmit = () => {
-        console.log('Form submitted!');
-    };
-
     //<---------Check status code Form----------->
     const [statusFormData, setStatusFormData] = useState({
       type: 'status',
