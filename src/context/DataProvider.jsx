@@ -20,7 +20,7 @@ const DataProvider = ({ children }) => {
                 paramData,
                 setParamData,
                 headerData,
-                setHeaderData
+                setHeaderData,
             }}
         >
             {children}

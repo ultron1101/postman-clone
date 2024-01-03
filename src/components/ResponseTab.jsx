@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Tabs, TextareaAutosize, Tab, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import TestResults from '../testComponents/TestResults';
 import ErrorScreen from './ErrorScreen';
+import { DataContext } from '../context/DataProvider';
 
 const textareaStyle = { 
     width: '100%', 
@@ -27,13 +28,14 @@ const useStyles = makeStyles({
             border: '1px solid #fff'
         }
     },
-    status: {
-        marginTop: '15px',
-        marginBottom: '20px'
+    resdata: {
+        margin: '25px 0',
+        display: 'flex', 
+        flexDirection: 'row'
     }
 });
 
-const ResponseTab = ({status, data, errorResponse}) => {
+const ResponseTab = ({status, time, data, errorResponse}) => {
     const classes = useStyles();
     const [value, setValue] = useState(0);
 
@@ -71,8 +73,9 @@ const ResponseTab = ({status, data, errorResponse}) => {
                 id={`simple-tabpanel-${0}`}
                 aria-labelledby={`simple-tab-${0}`}
             >
-                <div className={classes.status}>
-                    <Typography>Status: {status}</Typography>
+                <div className={classes.resdata}>
+                    <Typography style={{ margin: '0 10px' }}>Status: {status}</Typography>
+                    <Typography style={{ margin: '0 10px' }}>Time: {time}ms</Typography>
                 </div>
                 {errorResponse ? <ErrorScreen /> : 
                     <>
@@ -96,7 +99,7 @@ const ResponseTab = ({status, data, errorResponse}) => {
                 id={`simple-tabpanel-${1}`}
                 aria-labelledby={`simple-tab-${1}`}
             >
-                <TestResults status={status} data={data} />
+                <TestResults status={status} data={data}/>
             </Box>
             
         </Box>

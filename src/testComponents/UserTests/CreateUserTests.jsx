@@ -1,7 +1,6 @@
-import { Snackbar, Box, Container, Tab, Tabs, TextField, Typography, Button } from "@mui/material";
+import { Box, Container, Tab, Tabs, TextField, Typography, Button, MenuItem } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { useState } from "react";
-import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles({
     tab: {
@@ -11,6 +10,41 @@ const useStyles = makeStyles({
         }
     }
 })
+
+const TestsValue = [
+  {
+    value: 'Greater Than',
+    label: 'Greater Than (>)',
+  },
+  {
+    value: 'Less Than',
+    label: 'Less Than (<)',
+  },
+  {
+    value: 'Greater Than equals to',
+    label: 'Greater Than equals to (>=)',
+  },
+  {
+    value: 'Less Than equal to',
+    label: 'Less Than equal to (<=)',
+  },
+  {
+    value: 'Equals to',
+    label: 'Equals to (==)'
+  },
+  {
+    value: 'Length Equals',
+    label: 'Length Equals'
+  },
+  {
+    value: 'Is Valid Email',
+    label: 'Is Valid Email'
+  },
+  {
+    value: 'Is Present',
+    label: 'Is Present'
+  }
+]
 
 const CreateUserTests = ({ onSubmit }) => {
     const classes = useStyles();
@@ -26,6 +60,7 @@ const CreateUserTests = ({ onSubmit }) => {
 
     //<---------Check status code Form----------->
     const [statusFormData, setStatusFormData] = useState({
+      type: 'status',
       code: null,
       message: '',
     });
@@ -33,6 +68,10 @@ const CreateUserTests = ({ onSubmit }) => {
     const statusFormHandleChange = (e) => {
       setStatusFormData({ ...statusFormData, [e.target.name]: e.target.value });
     };
+
+    const statusFormClear = () => {
+      setStatusFormData({type: 'status', code: '', message: ''});
+    }
 
     const statusHandleSubmit = (e) => {
       e.preventDefault();
@@ -42,8 +81,40 @@ const CreateUserTests = ({ onSubmit }) => {
         alert('Please fill in all fields');
         return;
       }
-      
+
       onSubmit(statusFormData);
+      statusFormClear();
+    };
+
+
+    //<---------Check key-value Form----------->
+    const [KeyValFormData, setKeyValFormData] = useState({
+      type: 'key-value',
+      key: '',
+      comparator: '',
+      value: '',
+      message: '',
+    });
+
+    const KeyValFormHandleChange = (e) => {
+      setKeyValFormData({ ...KeyValFormData, [e.target.name]: e.target.value });
+    };
+
+    const KeyValFormClear = () => {
+      setKeyValFormData({type: 'key-value', key: '', comparator: '', value: '', message: ''});
+    }
+
+    const KeyValHandleSubmit = (e) => {
+      e.preventDefault();
+  
+      // Check if both code and message fields are filled
+      if (KeyValFormData.key === '' || KeyValFormData.comparator === '') {
+        alert('Please fill in Attribute and Test Scenario');
+        return;
+      }
+
+      onSubmit(KeyValFormData);
+      KeyValFormClear();
     };
 
     return(
@@ -96,14 +167,52 @@ const CreateUserTests = ({ onSubmit }) => {
             >
               <Typography style={{ marginTop: '20px' }}>Check by key value</Typography>
         
-              <TextField label="Key" fullWidth margin="normal" />
-              <TextField label="Value" fullWidth margin="normal" />
+              <TextField 
+                name="key"
+                value={KeyValFormData.key}
+                onChange={KeyValFormHandleChange}
+                sx={{"& .MuiInputBase-root": {height: 50}}} 
+                label="Attribute" 
+                fullWidth margin="normal" />
+
+              <TextField
+                sx={{"& .MuiInputBase-root": {height: 50}}}
+                name='comparator'
+                select
+                label="Select"
+                value={KeyValFormData.comparator}
+                helperText="Select your Test Scenario"
+                fullWidth margin="normal"
+                onChange={KeyValFormHandleChange}
+              >
+              {TestsValue.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+              </TextField>
+
+              <TextField 
+                name="value"
+                value={KeyValFormData.value}
+                onChange={KeyValFormHandleChange}
+                sx={{"& .MuiInputBase-root": {height: 50}}}
+                label="Expected Value" 
+                fullWidth margin="normal" />
+
+              <TextField
+                name="message"
+                value={KeyValFormData.message}
+                onChange={KeyValFormHandleChange}
+                sx={{"& .MuiInputBase-root": {height: 50}}}
+                label="Message" 
+                fullWidth margin="normal" />
 
               <Button 
                 variant="contained" 
                 size="small" 
                 style={{ backgroundColor: "#F26B3A", marginTop: '10px' }} 
-                onClick={handleSubmit}
+                onClick={KeyValHandleSubmit}
               >
                 Create
               </Button>

@@ -14,6 +14,7 @@ import SnackBar from './SnackBar';
 import Header from './Header';
 import Tests from '../testComponents/Tests';
 import ResponseTab from './ResponseTab';
+import RequestHistory from './RequestHistory';
 
 const useStyles = makeStyles({
     component: {
@@ -35,6 +36,7 @@ const Home = () => {
     const [errorResponse, setErrorResponse] = useState(false);
     const [apiResponse, setApiResponse] = useState({})
     const [status, setStatus] = useState(null);
+    const [time, setTime] = useState(0);
 
     const { formData, jsonText, paramData, headerData } = useContext(DataContext);
     
@@ -49,7 +51,9 @@ const Home = () => {
             return false;
         }
 
+        const StartTime = Date.now();
         let response = await getData(formData, jsonText, paramData, headerData);
+        const EndTime = Date.now();
         //console.log(response.status);
 
         if (response === 'error') {
@@ -58,6 +62,7 @@ const Home = () => {
             return;
         }
         setApiResponse(response.data);
+        setTime(EndTime - StartTime);
         setStatus(response.status);
     }
 
@@ -72,8 +77,8 @@ const Home = () => {
                 <Box className={classes.component}>
                     <Form onSendClick={onSendClick} />
                     <SelectTab />
-                    <ResponseTab status={status} data={apiResponse} errorResponse={errorResponse} />
-                    
+                    <ResponseTab status={status} time={time} data={apiResponse} errorResponse={errorResponse} />
+                    <RequestHistory />
                 </Box>
                 </Grid>
 
