@@ -69,14 +69,29 @@ const CreateUserTests = ({ onSubmit }) => {
       setStatusFormData({type: 'status', code: '', message: ''});
     }
 
-    const statusHandleSubmit = (e) => {
+    const statusHandleSubmit = async (e) => {
       e.preventDefault();
   
       // Check if both code and message fields are filled
-      if (statusFormData.code === null || statusFormData.message.trim() === '') {
-        alert('Please fill in all fields');
+      if (statusFormData.code === null && statusFormData.code <= 200 && statusFormData.code >= 599) {
+        alert('Invalid Status code Entered');
         return;
       }
+
+      const statusResponse = await fetch('http://localhost:8080/api/customTests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: statusFormData.type,
+          code: statusFormData.code,
+          message: statusFormData.message,
+          comparator: '',
+          attribute: '',
+          expected_value: '',
+        }),
+      });
 
       onSubmit(statusFormData);
       statusFormClear();
@@ -100,7 +115,7 @@ const CreateUserTests = ({ onSubmit }) => {
       setKeyValFormData({type: 'key-value', key: '', comparator: '', value: '', message: ''});
     }
 
-    const KeyValHandleSubmit = (e) => {
+    const KeyValHandleSubmit = async (e) => {
       e.preventDefault();
   
       // Check if both code and message fields are filled
@@ -108,6 +123,21 @@ const CreateUserTests = ({ onSubmit }) => {
         alert('Please fill in Attribute and Test Scenario');
         return;
       }
+
+      const statusResponse = await fetch('http://localhost:8080/api/customTests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: KeyValFormData.type,
+          code: '',
+          message: KeyValFormData.message,
+          comparator: KeyValFormData.comparator,
+          attribute: KeyValFormData.key,
+          expected_value: KeyValFormData.value,
+        }),
+      });
 
       onSubmit(KeyValFormData);
       KeyValFormClear();

@@ -63,7 +63,8 @@ const Form = ({ onSendClick }) => {
 
             {/* Search bar for Entering URL */}
             <TextField 
-                size="small" 
+                size="small"
+                value={formData.url} 
                 className={classes.textfield} 
                 onChange={(e) => onUrlChange(e)}
             />

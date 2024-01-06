@@ -44,13 +44,11 @@ const checkAttributesNotEmpty = (jsonObj) => {
     return true;
 };
 
-const TestResults = ({status, data, tests, setTests}) => {
+const TestResults = ({status, data}) => {
 
     //Creating Default test cases:
     const [validRequest, setValidRequest] = useState(false);
     const [TestResultsArr, setTestResultsArr] = useState([]);
-
-    console.log(tests);
 
     useEffect(() => {
 
@@ -74,7 +72,7 @@ const TestResults = ({status, data, tests, setTests}) => {
             // Use a callback function when updating state based on the current state
         setTestResultsArr(prevResults => [...prevResults, defaultTestCase0, defaultTestCase1]);
         console.log(TestResultsArr);
-    }, [status, data, validRequest]);
+    }, [status, data]);
 
 
     return (

@@ -13,7 +13,7 @@ export const getData = async (formData, jsonText, paramData, headerData) => {
         return await axios({
             method: apiType,
             url: apiUrl,
-            body: jsonText,
+            data: jsonText,
             headers: apiHeaders,
             params: apiParams
         })

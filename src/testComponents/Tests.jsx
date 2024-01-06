@@ -21,23 +21,12 @@ const styles = {
 
 const Tests = () => {
 
-    const [tests, setTests] = useState([]);
+    const [tests1, setTests1] = useState([]);
 
     const handleFormSubmit = (formData) => {
         // Add the form data to the tests array
-        setTests([...tests, formData]);
+        setTests1([...tests1, formData]);
       };
-
-    const handleDelete = (index) => {
-        // Create a copy of the tests array
-        const updatedTests = [...tests];
-        
-        // Remove the element at the specified index
-        updatedTests.splice(index, 1);
-
-        // Update the state with the modified array
-        setTests(updatedTests);
-    };
 
     return (
         <>
@@ -49,7 +38,7 @@ const Tests = () => {
                 <CreateUserTests onSubmit={handleFormSubmit} />
             </Container>
             <Container component={Paper} maxWidth="sm" style={styles.contain}>
-                <DisplayTests tests={tests} onDelete={handleDelete} />
+                <DisplayTests tests1={tests1}/>
             </Container>
         </>
     )

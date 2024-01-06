@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import Grid from '@mui/material/Grid';
 import { DataContext } from '../context/DataProvider';
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     },
     sidebar: {
         background: ['#FFFFFF', '!important'],
-        border: '1px solid rgba(224, 224, 224, 1)',
+        //border: '1px solid rgba(224, 224, 224, 1)',
     },
 })
 
@@ -37,6 +37,7 @@ const Home = () => {
     const [apiResponse, setApiResponse] = useState({})
     const [status, setStatus] = useState(null);
     const [time, setTime] = useState(0);
+    const [size, setSize] = useState(0);
 
     const { formData, jsonText, paramData, headerData } = useContext(DataContext);
     
@@ -54,16 +55,52 @@ const Home = () => {
         const StartTime = Date.now();
         let response = await getData(formData, jsonText, paramData, headerData);
         const EndTime = Date.now();
+        const responseSize = JSON.stringify(response).length;
         //console.log(response.status);
 
         if (response === 'error') {
-            setErrorResponse(true);
             setStatus(404);
+            setErrorResponse(true);
             return;
         }
         setApiResponse(response.data);
         setTime(EndTime - StartTime);
+        setSize(responseSize);
         setStatus(response.status);
+    }
+
+    const saveData = async () => {
+
+      const paramJson = JSON.stringify(paramData);
+      const headerJson = JSON.stringify(headerData);
+
+      let response = await getData(formData, jsonText, paramData, headerData);
+
+      if(formData.url === ''){
+        alert("Please Enter url first");
+        return;
+      }
+    
+      const backendResponse = await fetch('http://localhost:8080/api/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          responseData: JSON.stringify(response), // Include the API response in the request body
+          method: formData.type,
+          url: formData.url,
+          queryParameters: paramJson,
+          headers: headerJson,
+          statusCode: status,
+          responseSize: size,
+          responseTime: time,
+          defaultTestCase: '',
+        }),
+      });
+
+      const backendData = await backendResponse.json();
+      console.log('Data sent to backend:', backendData);
     }
 
 
@@ -76,8 +113,9 @@ const Home = () => {
                 <Grid item xs={12} md={8}>
                 <Box className={classes.component}>
                     <Form onSendClick={onSendClick} />
+                    <Button onClick={saveData}>Save</Button>
                     <SelectTab />
-                    <ResponseTab status={status} time={time} data={apiResponse} errorResponse={errorResponse} />
+                    <ResponseTab status={status} time={time} size={size} data={apiResponse} errorResponse={errorResponse} />
                     <RequestHistory />
                 </Box>
                 </Grid>

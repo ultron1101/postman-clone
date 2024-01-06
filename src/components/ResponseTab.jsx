@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     }
 });
 
-const ResponseTab = ({status, time, data, errorResponse}) => {
+const ResponseTab = ({status, time, size, data, errorResponse}) => {
     const classes = useStyles();
     const [value, setValue] = useState(0);
 
@@ -76,6 +76,7 @@ const ResponseTab = ({status, time, data, errorResponse}) => {
                 <div className={classes.resdata}>
                     <Typography style={{ margin: '0 10px' }}>Status: {status}</Typography>
                     <Typography style={{ margin: '0 10px' }}>Time: {time}ms</Typography>
+                    <Typography style={{ margin: '0 10px' }}>Size: {size}bytes</Typography>
                 </div>
                 {errorResponse ? <ErrorScreen /> : 
                     <>
