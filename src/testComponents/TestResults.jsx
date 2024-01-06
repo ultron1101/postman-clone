@@ -1,6 +1,8 @@
 import { Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
+import CustomTests from "./CustomTests";
+
 const styles = {
     pass: {
         display: 'inline-block',
@@ -28,14 +30,14 @@ const checkAttributesNotEmpty = (jsonObj) => {
  
     // Check if the object is empty
     if (Object.keys(jsonObj).length === 0) {
-        console.log('Empty object');
+        //console.log('Empty object');
         return false;
     }
  
     for (const key in jsonObj) {
         if (jsonObj.hasOwnProperty(key)) {
             const value = jsonObj[key];
-            console.log(`${key}: ${value}`);
+            //console.log(`${key}: ${value}`);
             if (value === null || (typeof value === 'string' && value.trim() === '')) {
                 return false;
             }
@@ -80,6 +82,7 @@ const TestResults = ({status, data}) => {
         <p>Test Results: </p>
         <Container maxWidth="lg" style={{ border: '1px solid rgba(224, 224, 224, 1)'}}>
             {TestResultsArr.map((html) => html)}
+            <CustomTests status={status} data={data}/>
         </Container>
         </>
     )

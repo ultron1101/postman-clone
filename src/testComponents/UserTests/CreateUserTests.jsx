@@ -14,22 +14,22 @@ const useStyles = makeStyles({
 const TestsValue = [
   {
     value: 'Greater Than',
-    label: 'Greater Than (>)',
+    label: 'Length or Value Greater Than (>)',
   },
   {
     value: 'Less Than',
-    label: 'Less Than (<)',
+    label: 'Length or Value Less Than (<)',
   },
   {
-    value: 'Greater Than equals to',
-    label: 'Greater Than equals to (>=)',
+    value: '>=',
+    label: 'Length or Value Greater Than equals to (>=)',
   },
   {
-    value: 'Less Than equal to',
-    label: 'Less Than equal to (<=)',
+    value: '<=',
+    label: 'Length or Value Less Than equal to (<=)',
   },
   {
-    value: 'Equals to',
+    value: '==',
     label: 'Equals to (==)'
   },
   {
@@ -37,12 +37,8 @@ const TestsValue = [
     label: 'Length Equals'
   },
   {
-    value: 'Is Valid Email',
+    value: 'email',
     label: 'Is Valid Email'
-  },
-  {
-    value: 'Is Present',
-    label: 'Is Present'
   }
 ]
 

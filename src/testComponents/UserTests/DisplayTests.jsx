@@ -11,7 +11,7 @@ import axios from "axios";
         fetchTests();
       },[tests1]);
     
-      const fetchTests = async () => {
+    const fetchTests = async () => {
         try {
           const tests2 = await axios.get('http://localhost:8080/api/customTests');
           setTests(tests2.data);
