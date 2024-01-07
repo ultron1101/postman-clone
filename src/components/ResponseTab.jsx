@@ -47,15 +47,17 @@ const ResponseTab = ({status, time, size, data, errorResponse}) => {
 
     //Making the incoming response JSON as string to look
     //like a JSON object
-    let readableobj = '{ \n';
-    for(let key in obj) {
-        readableobj += '\t'
-        readableobj += (typeof obj[key] === "string")? `${key}: "${obj[key]}"` : `${key}: ${obj[key]}`; 
-        if (Object.keys(obj).pop() !== key.toString()) {
-            readableobj += ',\n'
-        }
-    }
-    readableobj += '\n}';
+    // let readableobj = '{ \n';
+    // for(let key in obj) {
+    //     readableobj += '\t'
+    //     readableobj += (typeof obj[key] === "string")? `${key}: "${obj[key]}"` : `${key}: ${obj[key]}`; 
+    //     if (Object.keys(obj).pop() !== key.toString()) {
+    //         readableobj += ',\n'
+    //     }
+    // }
+    // readableobj += '\n}';
+
+    let readableobj = JSON.stringify(data, null, 2);
 
     return (
         <Box className={classes.component}>

@@ -26,7 +26,7 @@ const styles = {
 
 // Checking for empty or null values
 const checkAttributesNotEmpty = (jsonObj) => {
-    console.log('Checking attributes:', jsonObj);
+    //console.log('Checking attributes:', jsonObj);
  
     // Check if the object is empty
     if (Object.keys(jsonObj).length === 0) {

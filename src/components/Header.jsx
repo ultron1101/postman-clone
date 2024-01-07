@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const Header = () => {
     const classes = useStyles();
-    const logo = 'https://miro.medium.com/max/802/1*dLWPk_rziSpWhPx1UWONbQ@2x.png';
+    const logo = '/header_logo2.jpg';
 
     return (
         <>

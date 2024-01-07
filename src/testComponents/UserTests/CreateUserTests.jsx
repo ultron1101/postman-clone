@@ -39,6 +39,10 @@ const TestsValue = [
   {
     value: 'email',
     label: 'Is Valid Email'
+  },
+  {
+    value: 'type',
+    label: 'Type Check'
   }
 ]
 

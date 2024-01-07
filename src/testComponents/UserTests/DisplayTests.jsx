@@ -15,6 +15,7 @@ import axios from "axios";
         try {
           const tests2 = await axios.get('http://localhost:8080/api/customTests');
           setTests(tests2.data);
+          //console.log(tests2);
         
         } catch (error) {
           console.error('Error fetching history data:', error);
@@ -45,9 +46,10 @@ import axios from "axios";
                     <TableRow>                       
                         <TableCell style={{ width: '20%' }}>Type</TableCell>
                         <TableCell style={{ width: '20%' }}>Attribute</TableCell>
+                        <TableCell style={{ width: '20%' }}>Comparator</TableCell>
                         <TableCell style={{ width: '20%' }}>Expected</TableCell>
-                        <TableCell style={{ width: '30%' }}>Message</TableCell>
-                        <TableCell style={{ width: '10%' }}></TableCell>
+                        <TableCell style={{ width: '15%' }}>Message</TableCell>
+                        <TableCell style={{ width: '5%' }}></TableCell>
                     </TableRow>
                 </TableHead>
 
@@ -57,6 +59,7 @@ import axios from "axios";
                             <TableRow>
                                 <TableCell>{test.type}</TableCell>
                                 <TableCell>{test.attribute}</TableCell>
+                                <TableCell>{test.comparator}</TableCell>
                                 <TableCell>{test && test.code !== 0 
                                         ? (<span>{test.code}</span>) 
                                         : (<span>{test.expected_value}</span>)}

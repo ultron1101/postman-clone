@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react';
 
-import { Box, Button } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import Grid from '@mui/material/Grid';
 import { DataContext } from '../context/DataProvider';
 import { checkParams } from '../utils/common-utils';
 import { getData } from '../service/api';
+import SaveIcon from '@mui/icons-material/Save';
 
 //components
 import Form from "./Form";
@@ -113,7 +114,9 @@ const Home = () => {
                 <Grid item xs={12} md={8}>
                 <Box className={classes.component}>
                     <Form onSendClick={onSendClick} />
-                    <Button onClick={saveData}>Save</Button>
+                    <IconButton style={{ margin: '10px' }} onClick={saveData}>
+                        <SaveIcon color="secondary" fontSize="large" />
+                    </IconButton>
                     <SelectTab />
                     <ResponseTab status={status} time={time} size={size} data={apiResponse} errorResponse={errorResponse} />
                     <RequestHistory />
