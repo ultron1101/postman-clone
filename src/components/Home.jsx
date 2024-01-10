@@ -57,10 +57,9 @@ const Home = () => {
         let response = await getData(formData, jsonText, paramData, headerData);
         const EndTime = Date.now();
         const responseSize = JSON.stringify(response).length;
-        //console.log(response.status);
 
-        if (response === 'error') {
-            setStatus(404);
+        if (response.status >= 299) {
+            setStatus(response.status);
             setErrorResponse(true);
             return;
         }

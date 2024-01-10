@@ -19,6 +19,6 @@ export const getData = async (formData, jsonText, paramData, headerData) => {
         })
     } catch (error) {
         console.log('Error while getting the response ', error);
-        return 'error';
+        return error.response;
     }
 }

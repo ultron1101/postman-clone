@@ -82,7 +82,7 @@ const CustomTests = ({status, data}) => {
             ExpectedValue = 'string';
         } else if (ExpectedValue.toLowerCase() === 'null') {
             if (attributeValue === null) return 'Pass';
-        } else if (ExpectedValue.toLowerCase() === 'number' || ExpectedValue.toLowerCase() === 'int' || ExpectedValue.toLowerCase() === 'integer') {
+        } else if (ExpectedValue.toLowerCase() === 'number' || ExpectedValue.toLowerCase() === 'int' || ExpectedValue.toLowerCase() === 'integer' || ExpectedValue.toLowerCase() === 'num') {
             ExpectedValue = 'number';
         }
 
@@ -199,7 +199,7 @@ const CustomTests = ({status, data}) => {
                                     : (<><span style={styles.fail}>Failed</span></>)}</Typography>)}
                           </>
                           ) 
-                        : (<Typography style={{ padding: '8px' }}>{test.attribute} Attribute not found</Typography>)
+                        : (<Typography style={{ padding: '8px' }}>{test.attribute} Attribute not found : <span style={styles.fail}>Failed</span></Typography>)
                         }
                     </div>
                 );

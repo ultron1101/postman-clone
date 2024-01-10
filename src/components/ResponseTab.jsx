@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles';
 
 import TestResults from '../testComponents/TestResults';
 import ErrorScreen from './ErrorScreen';
-import { DataContext } from '../context/DataProvider';
 
 const textareaStyle = { 
     width: '100%', 
@@ -102,7 +101,7 @@ const ResponseTab = ({status, time, size, data, errorResponse}) => {
                 id={`simple-tabpanel-${1}`}
                 aria-labelledby={`simple-tab-${1}`}
             >
-                <TestResults status={status} data={data}/>
+                {!errorResponse ? <TestResults status={status} data={data}/> : <></>}
             </Box>
             
         </Box>
